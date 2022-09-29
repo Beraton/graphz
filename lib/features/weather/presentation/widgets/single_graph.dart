@@ -5,8 +5,6 @@ import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:graphz/features/weather/presentation/widgets/util/weather_spot_generator.dart';
 import 'package:intl/intl.dart';
 
-import '../../domain/entities/weather_list.dart';
-
 class SingleGraph extends StatelessWidget {
   final ParamType type;
   const SingleGraph({Key? key, required this.type}) : super(key: key);
@@ -16,18 +14,20 @@ class SingleGraph extends StatelessWidget {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         if (state is Initial) {
-          return Container(
+          return const SizedBox(
             child: Text('INITIAL STATE'),
           );
         }
         if (state is WeatherLoading) {
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).size.height / 3,
-            child: CircularProgressIndicator(),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
           );
         }
         if (state is WeatherLoaded) {
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).size.height / 3,
             child: LineChart(
               LineChartData(
@@ -86,7 +86,8 @@ class SingleGraph extends StatelessWidget {
 
                         // Ensure no label for the last record in the graph
                         if (value.toInt() ==
-                            state.weather.weatherList.length - 1) label = "";
+                                state.weather.weatherList.length - 1 ||
+                            value.toInt() == 0) label = "";
 
                         return SideTitleWidget(
                           space: 4,
@@ -94,7 +95,7 @@ class SingleGraph extends StatelessWidget {
                           child: Text(label, style: style),
                         );
                       },
-                      interval: 40,
+                      interval: 5,
                     ),
                   ),
                   leftTitles: AxisTitles(
@@ -112,7 +113,6 @@ class SingleGraph extends StatelessWidget {
                 gridData: FlGridData(
                   show: true,
                   horizontalInterval: 1,
-                  //drawVerticalGrid: true,
                   getDrawingVerticalLine: (value) {
                     return FlLine(
                       strokeWidth: 1,
