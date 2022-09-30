@@ -13,6 +13,9 @@ class WeatherModelList extends WeatherList {
 
   factory WeatherModelList.fromJson(Map<String, dynamic> json) {
     final res = WeatherModelList([]);
+    json['data'] = (json['data'] as List)
+        .map((e) => e == null ? null : Map<String, dynamic>.from(e))
+        .toList();
     for (int i = 0; i < json['data'].length; i++) {
       var temp = WeatherModel.fromJson(json['data'][i]);
       res.weatherList.add(temp);

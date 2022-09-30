@@ -6,12 +6,14 @@ class WeatherFilter {
     const duration = Duration(days: 7);
     DateTime start = DateTime.now().subtract(duration);
     DateTime end = DateTime.now();
-    for (int i = 0; i < inputWeather.weatherList.length; i++) {
-      if (inputWeather.weatherList[i].time.isAfter(start) &&
-          inputWeather.weatherList[i].time.isBefore(end)) {
-        result.weatherList.add(inputWeather.weatherList[i]);
-      }
-    }
+    inputWeather.weatherList
+        .where(
+      (element) => element.time.isAfter(start) && element.time.isBefore(end),
+    )
+        .forEach((element) {
+      result.weatherList.add(element);
+    });
+    //print(result.weatherList.last);
     return result;
   }
 }

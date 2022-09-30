@@ -95,6 +95,7 @@ void main() {
       final WeatherModelList tResult = WeatherModelList.fromJson(jsonObj);*/
       setUpMockHiveInterfaceAndBoxContent(tExpectedResult.toJson());
       final result = await dataSource.getCachedWeeklyWeather();
+      print(result.runtimeType);
       verify(mockHiveInterface.openBox('CACHED_WEATHER'));
       expect(result, tExpectedResult);
     });

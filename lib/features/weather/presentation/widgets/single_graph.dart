@@ -102,7 +102,7 @@ class SingleGraph extends StatelessWidget {
                           child: Text(label, style: style),
                         );
                       },
-                      interval: 8,
+                      interval: 12,
                     ),
                   ),
                   leftTitles: AxisTitles(

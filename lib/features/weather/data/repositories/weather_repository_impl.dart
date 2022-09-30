@@ -24,7 +24,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<Either<Failure, WeatherList>> getWeeklyWeather() async {
-    networkInfo.isConnected;
     return await _getWeather(
       () {
         return remoteDatasource.getWeeklyWeather();
@@ -54,6 +53,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
       }
     } else {
       try {
+        print("Trying to get cachedWeeklyWeather from device...");
         final localWeather = await localDatasource.getCachedWeeklyWeather();
         return Right(localWeather);
       } on CacheException {
