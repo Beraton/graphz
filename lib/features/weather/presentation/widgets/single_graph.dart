@@ -5,6 +5,11 @@ import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:graphz/features/weather/presentation/widgets/util/weather_spot_generator.dart';
 import 'package:intl/intl.dart';
 
+List<Color> gradientColors = [
+  const Color(0xff23b6e6),
+  const Color(0xff02d39a),
+];
+
 class SingleGraph extends StatelessWidget {
   final ParamType type;
   const SingleGraph({Key? key, required this.type}) : super(key: key);
@@ -44,6 +49,7 @@ class SingleGraph extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           fontSize: 11,
                         );
+                        /* Individual value label */
                         return LineTooltipItem(
                             "${touchedSpot.y.toString()} \n @${DateFormat.E().add_jm().format(state.weather.weatherList[touchedSpot.spotIndex].time.toLocal())..toString()}",
                             textStyle);
@@ -77,6 +83,7 @@ class SingleGraph extends StatelessWidget {
                           fontSize: 10,
                         );
 
+                        /* DateTime parsed into local time */
                         String label = '';
                         label = DateFormat.Hm()
                             .format(state
@@ -95,7 +102,7 @@ class SingleGraph extends StatelessWidget {
                           child: Text(label, style: style),
                         );
                       },
-                      interval: 5,
+                      interval: 8,
                     ),
                   ),
                   leftTitles: AxisTitles(

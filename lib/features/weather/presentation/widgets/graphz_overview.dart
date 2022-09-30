@@ -13,7 +13,7 @@ class GraphzOverview extends StatelessWidget {
       if (state is WeatherLoading) {
         return SizedBox(
           height: MediaQuery.of(context).size.height / 3,
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(),
           ),
         );
@@ -38,7 +38,7 @@ class GraphzOverview extends StatelessWidget {
       }
       if (state is Error) {
         return Container(
-          child: Text('Error occurred'),
+          child: const Text('Error occurred'),
         );
       }
       return Container();
