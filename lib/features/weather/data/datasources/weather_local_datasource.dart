@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
-import 'package:graphz/core/data/util/weekly_weather_filter.dart';
+import 'package:graphz/core/data/util/weather_filter.dart';
 import 'package:graphz/core/errors/exceptions.dart';
 import 'package:graphz/features/weather/data/models/weather_model.dart';
 import 'package:hive/hive.dart';
@@ -24,9 +24,8 @@ class WeatherLocalDatasourceImpl extends WeatherLocalDatasource {
   @override
   Future<void> cacheWeeklyWeather(WeatherModelList weatherToCache) async {
     final box = await _openBox(cachedWeather);
-    final weatherFilter = WeatherFilter();
-    final filteredWeatherToCache =
-        weatherFilter.filterWeeklyWeather(weatherToCache).toJson();
+    final weatherFilter = WeatherFilter(weatherToCache);
+    final filteredWeatherToCache = weatherFilter.filterWeeklyWeather().toJson();
     return box.put('weekly', filteredWeatherToCache);
   }
 

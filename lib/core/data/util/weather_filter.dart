@@ -1,7 +1,11 @@
 import '../../../features/weather/data/models/weather_model_list.dart';
 
 class WeatherFilter {
-  WeatherModelList filterWeeklyWeather(WeatherModelList inputWeather) {
+  final WeatherModelList inputWeather;
+
+  WeatherFilter(this.inputWeather);
+
+  WeatherModelList filterWeeklyWeather() {
     final result = WeatherModelList([]);
     const duration = Duration(days: 7);
     DateTime start = DateTime.now().subtract(duration);
