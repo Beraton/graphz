@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:graphz/core/data/util/weekly_weather_filter.dart';
+import 'package:graphz/core/data/util/weather_filter.dart';
 import 'package:graphz/core/errors/exceptions.dart';
 import 'package:graphz/features/weather/data/datasources/weather_local_datasource.dart';
 import 'package:graphz/features/weather/data/models/weather_model.dart';
@@ -90,12 +90,8 @@ void main() {
   group('getWeeklyWeather', () {
     test('should return weekly Weather from Hive box when there is one in it',
         () async {
-      /*final Map<String, dynamic> jsonObj =
-          json.decode(readFixture('weather_mixed.json'));
-      final WeatherModelList tResult = WeatherModelList.fromJson(jsonObj);*/
       setUpMockHiveInterfaceAndBoxContent(tExpectedResult.toJson());
       final result = await dataSource.getCachedWeeklyWeather();
-      print(result.runtimeType);
       verify(mockHiveInterface.openBox('CACHED_WEATHER'));
       expect(result, tExpectedResult);
     });
