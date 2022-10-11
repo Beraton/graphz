@@ -1,4 +1,3 @@
-export 'graphz_overview.dart';
+export 'overview_body.dart';
 export 'graph_title.dart';
 export 'single_graph.dart';
-export 'app_bottom_nav_bar.dart';

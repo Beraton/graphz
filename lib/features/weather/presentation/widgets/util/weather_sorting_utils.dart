@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -12,8 +13,37 @@ enum ParamType {
   light,
 }
 
+List<double> getParameterFromWeather(WeatherList weather, ParamType? type) {
+  List<double> res = [];
+  switch (type) {
+    case ParamType.temperature:
+      for (var e in weather.weatherList) {
+        res.add(e.temperature);
+      }
+      break;
+    case ParamType.humidity:
+      for (var e in weather.weatherList) {
+        res.add(e.humidity);
+      }
+      break;
+    case ParamType.pressure:
+      for (var e in weather.weatherList) {
+        res.add(e.pressure);
+      }
+      break;
+    case ParamType.light:
+      for (var e in weather.weatherList) {
+        res.add(e.light);
+      }
+      break;
+    case null:
+      break;
+  }
+  return res;
+}
+
 double getMaxValue(WeatherList weather, ParamType type) {
-  double max = 0;
+  num max = 0;
   switch (type) {
     case ParamType.temperature:
       for (var element in weather.weatherList) {
@@ -23,66 +53,60 @@ double getMaxValue(WeatherList weather, ParamType type) {
       break;
     case ParamType.humidity:
       for (var element in weather.weatherList) {
-        if (element.humRaw > max) max = element.humRaw;
+        if (element.humidity > max) max = element.humidity;
       }
       max = max + 1.0;
       break;
     case ParamType.pressure:
       for (var element in weather.weatherList) {
-        if (element.presRaw > max) max = element.presRaw;
+        if (element.pressure > max) max = element.pressure;
       }
       max = max + 5.0;
       break;
     case ParamType.light:
       for (var element in weather.weatherList) {
-        if (element.lux > max) max = element.lux.toDouble();
+        if (element.light > max) max = element.light.toDouble();
       }
       max = max + 5.0;
       break;
   }
-  return max;
+  return max.toDouble();
 }
 
 double getMinValue(WeatherList weather, ParamType type) {
-  double min = 10000;
+  num min = 10000;
   switch (type) {
     case ParamType.temperature:
       for (var element in weather.weatherList) {
-        if (element.tempRaw < min) min = element.tempRaw;
+        if (element.temperature < min) min = element.temperature;
       }
       min = min - 1.0;
       break;
     case ParamType.humidity:
       for (var element in weather.weatherList) {
-        if (element.humRaw < min) min = element.humRaw;
+        if (element.humidity < min) min = element.humidity;
       }
       min = min - 1.0;
       break;
     case ParamType.pressure:
       for (var element in weather.weatherList) {
-        if (element.presRaw < min) min = element.presRaw;
+        if (element.pressure < min) min = element.pressure;
       }
       min = min - 5.0;
       break;
     case ParamType.light:
       for (var element in weather.weatherList) {
-        if (element.lux < min) min = element.lux.toDouble();
+        if (element.light < min) min = element.light.toDouble();
       }
       min = min - 5.0;
       break;
   }
-  return min;
-}
-
-double parseChartSpotData(num value, num mod) {
-  return (((value * mod).round().toDouble() / mod));
+  return min.toDouble();
 }
 
 List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
   List<FlSpot> result = [];
   double i = 0;
-  //TODO: change 1 to CONFIG_FLOATING_POINT_PRECISION variable
-  num prec = pow(10.0, 1);
 
   switch (type) {
     case ParamType.temperature:
@@ -90,7 +114,7 @@ List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
         result.add(
           FlSpot(
             i++,
-            parseChartSpotData(data.weatherList[x].tempRaw, prec),
+            data.weatherList[x].temperature,
           ),
         );
       }
@@ -100,7 +124,7 @@ List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
         result.add(
           FlSpot(
             i++,
-            parseChartSpotData(data.weatherList[x].humRaw, prec),
+            data.weatherList[x].humidity,
           ),
         );
       }
@@ -110,7 +134,7 @@ List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
         result.add(
           FlSpot(
             i++,
-            parseChartSpotData(data.weatherList[x].presRaw, prec),
+            data.weatherList[x].pressure,
           ),
         );
       }
@@ -120,7 +144,7 @@ List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
         result.add(
           FlSpot(
             i++,
-            parseChartSpotData(data.weatherList[x].lux, prec),
+            data.weatherList[x].light,
           ),
         );
       }

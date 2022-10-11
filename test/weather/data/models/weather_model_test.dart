@@ -15,25 +15,6 @@ void main() {
     lux: 55.01,
   );
 
-  /*
-  final tWeatherModelList = [
-    WeatherModel(
-      time: "2022-08-13T20:15:46.198Z",
-      tempRaw: 24.01,
-      humRaw: 81.1552734375,
-      presRaw: 1014.2944341819934,
-      lux: 55.01,
-    ),
-    WeatherModel(
-      time: "2022-08-13T20:17:46.198Z",
-      tempRaw: 25.1,
-      humRaw: 76.1552734375,
-      presRaw: 1015.2944341819934,
-      lux: 49,
-    ),
-  ];
-  */
-
   test(
     'should be subclass of Weather entity',
     () async {

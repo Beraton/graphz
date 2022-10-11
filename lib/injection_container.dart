@@ -1,7 +1,6 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:get_it/get_it.dart';
 import 'package:graphz/core/network/network_info.dart';
-import 'package:graphz/core/presentation/bloc/navigation_bloc.dart';
 import 'package:graphz/features/weather/data/datasources/weather_local_datasource.dart';
 import 'package:graphz/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart';
@@ -26,7 +25,6 @@ void init() {
       weeklyWeather: sl(),
     ),
   );
-  sl.registerFactory(() => NavigationBloc());
 
   // Use cases
   sl.registerLazySingleton(() => GetFullYearWeather(sl()));
