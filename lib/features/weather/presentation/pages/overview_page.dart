@@ -100,31 +100,8 @@ class OverviewPage extends StatelessWidget {
               ),
             ],
           ),
-          /*
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: buildBody(context),
-            ),
-          ),
-          */
         ),
       ),
     );
-  }
-
-  BlocBuilder buildBody(BuildContext context) {
-    return BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
-      if (state is WeatherLoading) {
-        return const CircularProgressIndicator();
-      } else if (state is WeatherLoaded) {
-        return const OverviewBody();
-      } else if (state is Error) {
-        return const SizedBox(
-          child: Text("Error occurred"),
-        );
-      }
-      return Container();
-    });
   }
 }
