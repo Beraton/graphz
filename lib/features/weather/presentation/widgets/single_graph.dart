@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
-import 'package:graphz/features/weather/presentation/widgets/util/weather_spot_generator.dart';
+import 'package:graphz/features/weather/presentation/widgets/util/weather_sorting_utils.dart';
 import 'package:intl/intl.dart';
 
 List<Color> gradientColors = [
