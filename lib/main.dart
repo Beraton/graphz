@@ -60,6 +60,12 @@ class MyApp extends StatelessWidget {
             fontSize: 18,
             color: Color.fromRGBO(217, 217, 217, 0.85),
           ),
+          bodySmall: TextStyle(
+            fontFamily: 'Oxygen',
+            fontWeight: FontWeight.bold,
+            fontSize: 10,
+            color: Color.fromRGBO(217, 217, 217, 0.85),
+          ),
         ),
       ),
     );
