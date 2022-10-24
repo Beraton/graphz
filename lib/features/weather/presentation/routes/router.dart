@@ -16,7 +16,7 @@ import 'package:graphz/features/weather/presentation/pages/overview_page.dart';
           page: OverviewPage,
         ),
         AutoRoute(
-          path: ':paramId',
+          path: ':pageId',
           page: DetailsPage,
         ),
       ],

@@ -15,6 +15,7 @@ import 'package:auto_route/auto_route.dart' as _i4;
 import 'package:auto_route/empty_router_widgets.dart' as _i1;
 import 'package:flutter/material.dart' as _i5;
 
+import '../../domain/entities/weather_list.dart' as _i6;
 import '../pages/details_page.dart' as _i3;
 import '../pages/overview_page.dart' as _i2;
 
@@ -33,8 +34,11 @@ class AppRouter extends _i4.RootStackRouter {
           routeData: routeData, child: const _i2.OverviewPage());
     },
     DetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailsRouteArgs>();
       return _i4.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.DetailsPage());
+          routeData: routeData,
+          child: _i3.DetailsPage(
+              key: args.key, pageId: args.pageId, paramType: args.paramType));
     }
   };
 
@@ -44,7 +48,7 @@ class AppRouter extends _i4.RootStackRouter {
           _i4.RouteConfig(OverviewRoute.name,
               path: '', parent: MainRouter.name),
           _i4.RouteConfig(DetailsRoute.name,
-              path: ':paramType', parent: MainRouter.name)
+              path: ':pageId', parent: MainRouter.name)
         ])
       ];
 }
@@ -68,8 +72,30 @@ class OverviewRoute extends _i4.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.DetailsPage]
-class DetailsRoute extends _i4.PageRouteInfo<void> {
-  const DetailsRoute() : super(DetailsRoute.name, path: ':paramType');
+class DetailsRoute extends _i4.PageRouteInfo<DetailsRouteArgs> {
+  DetailsRoute(
+      {_i5.Key? key, required int pageId, required _i6.ParamType paramType})
+      : super(DetailsRoute.name,
+            path: ':pageId',
+            args: DetailsRouteArgs(
+                key: key, pageId: pageId, paramType: paramType),
+            rawPathParams: {'pageId': pageId});
 
   static const String name = 'DetailsRoute';
+}
+
+class DetailsRouteArgs {
+  const DetailsRouteArgs(
+      {this.key, required this.pageId, required this.paramType});
+
+  final _i5.Key? key;
+
+  final int pageId;
+
+  final _i6.ParamType paramType;
+
+  @override
+  String toString() {
+    return 'DetailsRouteArgs{key: $key, pageId: $pageId, paramType: $paramType}';
+  }
 }
