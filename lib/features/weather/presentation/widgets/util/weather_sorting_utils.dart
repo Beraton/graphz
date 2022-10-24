@@ -1,154 +1,55 @@
-import 'dart:ffi';
-import 'dart:math';
-
 import 'package:fl_chart/fl_chart.dart';
-import 'package:graphz/features/weather/domain/entities/weather.dart';
 
+import '../../../domain/entities/weather.dart';
 import '../../../domain/entities/weather_list.dart';
 
-enum ParamType {
-  temperature,
-  humidity,
-  pressure,
-  light,
+String createCurrentCardValue(String cardTitle, WeatherList weatherList) {
+  Map<String, String> map = {
+    "Temperature": "${weatherList.getCurrent.temperature.toString()} °C",
+    "Humidity": "${weatherList.getCurrent.humidity.toString()} %",
+    "Pressure": "${weatherList.getCurrent.pressure.toString()} hPa",
+    "Light": "${weatherList.getCurrent.light.toString()} lux",
+  };
+  return map[cardTitle]!;
 }
 
-List<double> getParameterFromWeather(WeatherList weather, ParamType? type) {
-  List<double> res = [];
-  switch (type) {
-    case ParamType.temperature:
-      for (var e in weather.weatherList) {
-        res.add(e.temperature);
-      }
-      break;
-    case ParamType.humidity:
-      for (var e in weather.weatherList) {
-        res.add(e.humidity);
-      }
-      break;
-    case ParamType.pressure:
-      for (var e in weather.weatherList) {
-        res.add(e.pressure);
-      }
-      break;
-    case ParamType.light:
-      for (var e in weather.weatherList) {
-        res.add(e.light);
-      }
-      break;
-    case null:
-      break;
-  }
-  return res;
+String mapParamTypeToTitle(ParamType paramType) {
+  const Map<ParamType, String> map = {
+    ParamType.temperature: "Temperature",
+    ParamType.humidity: "Humidity",
+    ParamType.pressure: "Pressure",
+    ParamType.light: "Light",
+  };
+  return map[paramType]!;
+}
+
+List<double> getParameterFromWeather(WeatherList weather, ParamType type) {
+  return weather.extractWeatherValue(type);
 }
 
 double getMaxValue(WeatherList weather, ParamType type) {
   num max = 0;
-  switch (type) {
-    case ParamType.temperature:
-      for (var element in weather.weatherList) {
-        if (element.tempRaw > max) max = element.tempRaw;
-      }
-      max = max + 1.0;
-      break;
-    case ParamType.humidity:
-      for (var element in weather.weatherList) {
-        if (element.humidity > max) max = element.humidity;
-      }
-      max = max + 1.0;
-      break;
-    case ParamType.pressure:
-      for (var element in weather.weatherList) {
-        if (element.pressure > max) max = element.pressure;
-      }
-      max = max + 5.0;
-      break;
-    case ParamType.light:
-      for (var element in weather.weatherList) {
-        if (element.light > max) max = element.light.toDouble();
-      }
-      max = max + 5.0;
-      break;
+  for (var e in weather.extractWeatherValue(type)) {
+    if (e > max) max = e;
   }
-  return max.toDouble();
+  return max.toDouble() + 1.0;
 }
 
 double getMinValue(WeatherList weather, ParamType type) {
   num min = 10000;
-  switch (type) {
-    case ParamType.temperature:
-      for (var element in weather.weatherList) {
-        if (element.temperature < min) min = element.temperature;
-      }
-      min = min - 1.0;
-      break;
-    case ParamType.humidity:
-      for (var element in weather.weatherList) {
-        if (element.humidity < min) min = element.humidity;
-      }
-      min = min - 1.0;
-      break;
-    case ParamType.pressure:
-      for (var element in weather.weatherList) {
-        if (element.pressure < min) min = element.pressure;
-      }
-      min = min - 5.0;
-      break;
-    case ParamType.light:
-      for (var element in weather.weatherList) {
-        if (element.light < min) min = element.light.toDouble();
-      }
-      min = min - 5.0;
-      break;
+  for (var e in weather.extractWeatherValue(type)) {
+    if (e < min) min = e;
   }
-  return min.toDouble();
+  return min.toDouble() - 1.0;
 }
 
 List<FlSpot> generateChartSpots(WeatherList data, ParamType type) {
   List<FlSpot> result = [];
   double i = 0;
 
-  switch (type) {
-    case ParamType.temperature:
-      for (int x = 0; x < data.weatherList.length; x++) {
-        result.add(
-          FlSpot(
-            i++,
-            data.weatherList[x].temperature,
-          ),
-        );
-      }
-      break;
-    case ParamType.humidity:
-      for (int x = 0; x < data.weatherList.length; x++) {
-        result.add(
-          FlSpot(
-            i++,
-            data.weatherList[x].humidity,
-          ),
-        );
-      }
-      break;
-    case ParamType.pressure:
-      for (int x = 0; x < data.weatherList.length; x++) {
-        result.add(
-          FlSpot(
-            i++,
-            data.weatherList[x].pressure,
-          ),
-        );
-      }
-      break;
-    case ParamType.light:
-      for (int x = 0; x < data.weatherList.length; x++) {
-        result.add(
-          FlSpot(
-            i++,
-            data.weatherList[x].light,
-          ),
-        );
-      }
-      break;
+  for (var e in data.extractWeatherValue(type)) {
+    result.add(FlSpot(i++, e));
   }
+
   return result;
 }
