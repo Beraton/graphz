@@ -21,7 +21,7 @@ class Weather extends Equatable {
 
   double get pressure => double.parse(presRaw.toStringAsFixed(1));
 
-  double get light => double.parse(light.toStringAsFixed(1));
+  double get light => double.parse(lux.toStringAsFixed(1));
 
   @override
   List<Object> get props => [time, tempRaw, humRaw, presRaw, lux];
