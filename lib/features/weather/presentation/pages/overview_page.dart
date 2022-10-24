@@ -1,35 +1,25 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
-import 'package:graphz/features/weather/presentation/routes/router.gr.dart';
-import 'package:graphz/features/weather/presentation/widgets/card_content.dart';
-import 'package:graphz/features/weather/presentation/widgets/util/weather_sorting_utils.dart';
 import 'package:graphz/features/weather/presentation/widgets/widgets.dart';
 
-import '../../../../injection_container.dart';
-import '../widgets/background.dart';
+import '../../domain/entities/weather_list.dart';
 
 class OverviewPage extends StatelessWidget {
   const OverviewPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WeatherBloc>(
-      create: (BuildContext context) => sl<WeatherBloc>(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Stack(
-            children: <Widget>[
-              CustomPaint(
-                painter: Background(),
-                child:
-                    Container(height: MediaQuery.of(context).size.height * 0.5),
-              ),
-              Column(
-                children: <Widget>[
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: Column(
+          children: <Widget>[
+            CustomPaint(
+              painter: Background(),
+              child: Column(
+                children: [
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 16,
@@ -84,21 +74,30 @@ class OverviewPage extends StatelessWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
-                      children: [
+                      children: const [
                         CardContent(
-                            title: "Temperature",
-                            paramType: ParamType.temperature),
+                          title: "Temperature",
+                          paramType: ParamType.temperature,
+                        ),
                         CardContent(
-                            title: "Humidity", paramType: ParamType.humidity),
+                          title: "Humidity",
+                          paramType: ParamType.humidity,
+                        ),
                         CardContent(
-                            title: "Pressure", paramType: ParamType.pressure),
+                          title: "Pressure",
+                          paramType: ParamType.pressure,
+                        ),
+                        CardContent(
+                          title: "Light",
+                          paramType: ParamType.light,
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,16 +1,20 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graphz/features/weather/presentation/routes/router.gr.dart';
 import 'package:graphz/features/weather/presentation/widgets/util/weather_sorting_utils.dart';
 
+import '../../../../core/bloc/navigation_bloc.dart';
+import '../../domain/entities/weather_list.dart';
 import '../bloc/weather_bloc.dart';
 import 'custom_icon.dart';
 
 class CardContent extends StatelessWidget {
   final String? title;
-  final ParamType? paramType;
-  const CardContent({super.key, this.title, this.paramType});
+  final ParamType paramType;
+  const CardContent({super.key, this.title, required this.paramType});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +41,8 @@ class CardContent extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
-                  print("to implement routing");
+                  BlocProvider.of<NavigationBloc>(context)
+                      .add(NavigationPushPage(paramType));
                 },
                 child: Stack(
                   children: <Widget>[
@@ -50,31 +55,20 @@ class CardContent extends StatelessWidget {
                         children: <Widget>[
                           BlocBuilder<WeatherBloc, WeatherState>(
                             builder: (context, state) {
-                              if (state is Initial) {
+                              if (state is! WeatherLoaded) {
                                 return Text(
                                   "-",
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.visible,
-                                  style: theme.primaryTextTheme.bodyText1,
-                                );
-                              }
-                              if (state is WeatherLoading) {
-                                return Text(
-                                  "-",
-                                  textAlign: TextAlign.left,
-                                  overflow: TextOverflow.visible,
-                                  style: theme.primaryTextTheme.bodyText1,
+                                  style: theme.primaryTextTheme.bodyMedium,
                                 );
                               }
                               if (state is WeatherLoaded) {
                                 return Text(
-                                  getParameterFromWeather(
-                                          state.weather, paramType)
-                                      .last
-                                      .toString(),
+                                  createCurrentCardValue(title!, state.weather),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.visible,
-                                  style: theme.primaryTextTheme.bodyText1,
+                                  style: theme.primaryTextTheme.bodyMedium,
                                 );
                               }
                               return Container();
