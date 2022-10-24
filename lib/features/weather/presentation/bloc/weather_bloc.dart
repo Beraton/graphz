@@ -26,6 +26,9 @@ String _mapFailureToMessage(Failure failure) {
 }
 
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
+  final GetFullYearWeather fullYear;
+  final GetWeeklyWeather weeklyWeather;
+
   WeatherBloc({
     required this.fullYear,
     required this.weeklyWeather,
@@ -33,9 +36,6 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     on<GetFullYearWeatherEvent>(_onGetFullYearWeatherEvent);
     on<GetLastWeekWeatherEvent>(_onGetLastWeekWeatherEvent);
   }
-
-  final GetFullYearWeather fullYear;
-  final GetWeeklyWeather weeklyWeather;
 
   void _onGetFullYearWeatherEvent(
       GetFullYearWeatherEvent event, Emitter<WeatherState> emit) async {
