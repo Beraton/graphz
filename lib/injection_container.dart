@@ -1,5 +1,6 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:get_it/get_it.dart';
+import 'package:graphz/core/bloc/navigation_bloc.dart';
 import 'package:graphz/core/network/network_info.dart';
 import 'package:graphz/features/weather/data/datasources/weather_local_datasource.dart';
 import 'package:graphz/features/weather/data/repositories/weather_repository_impl.dart';
@@ -10,8 +11,10 @@ import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
+import 'features/weather/presentation/routes/router.gr.dart';
 
 import 'features/weather/data/datasources/weather_remote_datasource.dart';
+import 'features/weather/presentation/routes/router.gr.dart';
 
 final sl = GetIt.instance;
 
@@ -25,6 +28,15 @@ void init() {
       weeklyWeather: sl(),
     ),
   );
+
+  sl.registerFactory(
+    () => NavigationBloc(
+      appRouter: sl(),
+    ),
+  );
+
+  // Navigation
+  sl.registerLazySingleton(() => AppRouter());
 
   // Use cases
   sl.registerLazySingleton(() => GetFullYearWeather(sl()));
