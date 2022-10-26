@@ -3,7 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../../../domain/entities/weather.dart';
 import '../../../domain/entities/weather_list.dart';
 
-String createCurrentCardValue(String cardTitle, WeatherList weatherList) {
+String createCurrentValue(String cardTitle, WeatherList weatherList) {
   Map<String, String> map = {
     "Temperature": "${weatherList.getCurrent.temperature.toString()} °C",
     "Humidity": "${weatherList.getCurrent.humidity.toString()} %",

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/widgets/background.dart';
+import 'package:graphz/features/weather/presentation/widgets/data_label.dart';
 import 'package:graphz/features/weather/presentation/widgets/single_graph.dart';
 
 import '../../../../core/bloc/navigation_bloc.dart';
@@ -50,6 +51,12 @@ class DetailsPage extends StatelessWidget {
                                       .add(NavigationPreviousPage(context));
                                 },
                               ),
+                              Text(
+                                mapParamTypeToTitle(paramType),
+                                style: Theme.of(context)
+                                    .primaryTextTheme
+                                    .titleMedium,
+                              ),
                               IconButton(
                                 icon: const Icon(Icons.refresh),
                                 color: Colors.white,
@@ -64,10 +71,7 @@ class DetailsPage extends StatelessWidget {
                       },
                     ),
                   ),
-                  Text(
-                    mapParamTypeToTitle(paramType),
-                    style: Theme.of(context).primaryTextTheme.bodyMedium,
-                  ),
+                  DataLabel(type: paramType),
                   SingleGraph(type: paramType),
                 ],
               ),

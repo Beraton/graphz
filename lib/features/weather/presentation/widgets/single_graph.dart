@@ -134,6 +134,8 @@ class SingleGraph extends StatelessWidget {
           minY: 2.0,
           lineBarsData: [
             LineChartBarData(
+              show: false,
+              /* Dummy data used to show grid lines */
               spots: const [
                 FlSpot(1.0, 6.0),
                 FlSpot(2.0, 4.5),
@@ -209,11 +211,30 @@ class SingleGraph extends StatelessWidget {
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         if (state is Initial) {
-          return const SizedBox(
-            child: Text('INITIAL STATE'),
+          return AspectRatio(
+            aspectRatio: 3 / 2,
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: <Color>[
+                        Colors.white.withOpacity(0.1),
+                        Colors.white.withOpacity(0.05),
+                      ],
+                    ),
+                  ),
+                  child: _buildPlaceholderGraph(),
+                ),
+              ),
+            ),
           );
         }
-        if (state is WeatherLoading) {
+        if (state is! WeatherLoaded) {
           return AspectRatio(
             aspectRatio: 3 / 2,
             child: Container(
@@ -224,13 +245,13 @@ class SingleGraph extends StatelessWidget {
                   children: [
                     Center(child: CircularProgressIndicator()),
                     Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: <Color>[
-                            Colors.white12,
-                            Colors.white10,
+                            Colors.white.withOpacity(0.1),
+                            Colors.white.withOpacity(0.05),
                           ],
                         ),
                       ),

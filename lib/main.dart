@@ -60,19 +60,25 @@ class MyApp extends StatelessWidget {
             ),
             titleMedium: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.w500,
               fontSize: 20,
+              color: Color.fromRGBO(217, 217, 217, 0.85),
+            ),
+            titleSmall: TextStyle(
+              fontFamily: 'Oxygen',
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
               color: Color.fromRGBO(217, 217, 217, 0.85),
             ),
             bodyMedium: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
               fontSize: 16,
               color: Color.fromRGBO(217, 217, 217, 0.85),
             ),
             bodySmall: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w300,
               fontSize: 10,
               color: Color.fromRGBO(217, 217, 217, 0.85),
             ),

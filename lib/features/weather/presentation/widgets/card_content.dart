@@ -65,7 +65,7 @@ class CardContent extends StatelessWidget {
                               }
                               if (state is WeatherLoaded) {
                                 return Text(
-                                  createCurrentCardValue(title!, state.weather),
+                                  createCurrentValue(title!, state.weather),
                                   textAlign: TextAlign.left,
                                   overflow: TextOverflow.visible,
                                   style: theme.primaryTextTheme.bodyMedium,
