@@ -11,6 +11,8 @@ class DataLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String dataLabelTitle = mapParamTypeToTitle(type);
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Container(
@@ -33,8 +35,8 @@ class DataLabel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Current",
-                      style: Theme.of(context).primaryTextTheme.titleMedium,
+                      "Current ${dataLabelTitle.toLowerCase()}",
+                      style: Theme.of(context).primaryTextTheme.titleSmall,
                     ),
                     Text(
                       "-",
@@ -48,12 +50,11 @@ class DataLabel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Current",
-                      style: Theme.of(context).primaryTextTheme.titleMedium,
+                      "Current ${dataLabelTitle.toLowerCase()}",
+                      style: Theme.of(context).primaryTextTheme.titleSmall,
                     ),
                     Text(
-                      createCurrentValue(
-                          mapParamTypeToTitle(type), state.weather),
+                      createCurrentValue(dataLabelTitle, state.weather),
                       style: Theme.of(context).primaryTextTheme.bodyMedium,
                     ),
                   ],
@@ -64,8 +65,8 @@ class DataLabel extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Current",
-                      style: Theme.of(context).primaryTextTheme.titleMedium,
+                      "Current ${dataLabelTitle.toLowerCase()}",
+                      style: Theme.of(context).primaryTextTheme.titleSmall,
                     ),
                     Text(
                       "Error",

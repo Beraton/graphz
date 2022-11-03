@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
+import 'package:graphz/features/weather/presentation/widgets/util/weather_sorting_utils.dart';
 import 'package:graphz/features/weather/presentation/widgets/widgets.dart';
 
 import '../../domain/entities/weather_list.dart';
@@ -32,15 +33,34 @@ class OverviewPage extends StatelessWidget {
                       children: <Widget>[
                         BlocBuilder<WeatherBloc, WeatherState>(
                             builder: (context, state) {
-                          return SafeArea(
-                            child: IconButton(
-                              icon: const Icon(Icons.menu),
-                              color: Colors.white,
-                              onPressed: () {
-                                BlocProvider.of<WeatherBloc>(context)
-                                    .add(GetLastWeekWeatherEvent());
-                              },
-                            ),
+                          return Row(
+                            children: [
+                              SafeArea(
+                                child: IconButton(
+                                  icon: const Icon(Icons.menu),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    print("to implement logging");
+                                    if (state is WeatherLoaded) {
+                                      getSpecificDayWeather(
+                                          DateTime.parse(
+                                              '2022-10-28 13:22:22.000'),
+                                          state.weather);
+                                    }
+                                  },
+                                ),
+                              ),
+                              SafeArea(
+                                child: IconButton(
+                                  icon: const Icon(Icons.refresh),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    BlocProvider.of<WeatherBloc>(context)
+                                        .add(GetLastWeekWeatherEvent());
+                                  },
+                                ),
+                              ),
+                            ],
                           );
                         }),
                         Column(
