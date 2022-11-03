@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           ),
           canvasColor: Color.fromRGBO(50, 48, 57, 1), //darker grey
           highlightColor: Colors.lightGreen,
-          cardColor: Colors.lightGreen[500],
+          cardColor: Color.fromRGBO(217, 217, 217, 0.95),
           errorColor: Colors.redAccent,
           backgroundColor: Color.fromRGBO(50, 48, 57, 1), //darker grey
           floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -60,14 +60,14 @@ class MyApp extends StatelessWidget {
             ),
             titleMedium: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               fontSize: 20,
-              color: Color.fromRGBO(217, 217, 217, 0.85),
+              color: Color.fromRGBO(217, 217, 217, 0.95),
             ),
             titleSmall: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
               color: Color.fromRGBO(217, 217, 217, 0.85),
             ),
             bodyMedium: TextStyle(
@@ -78,8 +78,8 @@ class MyApp extends StatelessWidget {
             ),
             bodySmall: TextStyle(
               fontFamily: 'Oxygen',
-              fontWeight: FontWeight.w300,
-              fontSize: 10,
+              fontWeight: FontWeight.w400,
+              fontSize: 13,
               color: Color.fromRGBO(217, 217, 217, 0.85),
             ),
           ),
