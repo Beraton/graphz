@@ -17,7 +17,6 @@ class WeatherFilter {
         .forEach((element) {
       result.weatherList.add(element);
     });
-    //print(result.weatherList.last);
     return result;
   }
 }

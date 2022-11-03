@@ -25,7 +25,6 @@ String mapParamTypeToTitle(ParamType paramType) {
 
 WeatherList getSpecificDayWeather(DateTime date, WeatherList weather) {
   WeatherList res = WeatherList([]);
-  print("DateTime passes: ${date}");
   weather.weatherList.forEach((e) {
     if (e.time.month == date.month && e.time.day == date.day) {
       res.weatherList.add(e);

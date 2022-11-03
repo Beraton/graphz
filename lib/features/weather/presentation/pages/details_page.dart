@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/widgets/background.dart';
 import 'package:graphz/features/weather/presentation/widgets/data_label.dart';
 import 'package:graphz/features/weather/presentation/widgets/date_selector.dart';
-import 'package:graphz/features/weather/presentation/widgets/single_graph.dart';
+import 'package:graphz/features/weather/presentation/widgets/graph/single_graph.dart';
 
 import '../../../../core/bloc/navigation_bloc.dart';
 import '../../domain/entities/weather_list.dart';
