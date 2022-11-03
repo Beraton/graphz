@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
+import 'package:graphz/features/weather/presentation/widgets/date_selector.dart';
 import 'package:graphz/features/weather/presentation/widgets/util/weather_sorting_utils.dart';
 import 'package:intl/intl.dart';
 
@@ -28,15 +29,10 @@ class SingleGraph extends StatelessWidget {
             touchTooltipData: LineTouchTooltipData(
               getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
                 return touchedBarSpots.map((LineBarSpot touchedSpot) {
-                  const textStyle = TextStyle(
-                    color: Colors.white70,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 11,
-                  );
                   /* Individual value label */
                   return LineTooltipItem(
                       "${touchedSpot.y.toString()} \n @${DateFormat.E().add_jm().format(state.weather.weatherList[touchedSpot.spotIndex].time.toLocal())..toString()}",
-                      textStyle);
+                      Theme.of(context).primaryTextTheme.bodySmall!);
                 }).toList();
               },
               tooltipBgColor: Theme.of(context).primaryColor.withOpacity(0.8),

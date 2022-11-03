@@ -23,6 +23,18 @@ String mapParamTypeToTitle(ParamType paramType) {
   return map[paramType]!;
 }
 
+WeatherList getSpecificDayWeather(DateTime date, WeatherList weather) {
+  WeatherList res = WeatherList([]);
+  print("DateTime passes: ${date}");
+  weather.weatherList.forEach((e) {
+    if (e.time.month == date.month && e.time.day == date.day) {
+      res.weatherList.add(e);
+      print(e);
+    }
+  });
+  return res;
+}
+
 List<double> getParameterFromWeather(WeatherList weather, ParamType type) {
   return weather.extractWeatherValue(type);
 }

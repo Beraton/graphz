@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graphz/features/weather/presentation/widgets/background.dart';
 import 'package:graphz/features/weather/presentation/widgets/data_label.dart';
+import 'package:graphz/features/weather/presentation/widgets/date_selector.dart';
 import 'package:graphz/features/weather/presentation/widgets/single_graph.dart';
 
 import '../../../../core/bloc/navigation_bloc.dart';
@@ -72,6 +73,7 @@ class DetailsPage extends StatelessWidget {
                     ),
                   ),
                   DataLabel(type: paramType),
+                  DateSelector(),
                   SingleGraph(type: paramType),
                 ],
               ),
