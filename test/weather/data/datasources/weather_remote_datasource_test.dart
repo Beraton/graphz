@@ -6,6 +6,7 @@ import 'package:graphz/core/errors/exceptions.dart';
 import 'package:graphz/features/weather/data/datasources/weather_remote_datasource.dart';
 import 'package:graphz/features/weather/data/models/weather_model_list.dart';
 import 'package:graphz/features/weather/data/repositories/weather_repository_impl.dart';
+import 'package:intl/intl.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
@@ -18,9 +19,9 @@ void main() {
   late WeatherRemoteDatasourceImpl dataSource;
   late MockClient mockHttpClient;
 
-  void setUpMockHttpClientSuccess() {
-    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
-        (_) async => http.Response(readFixture('weather_mixed.json'), 200));
+  void setUpMockHttpClientSuccess(String file) {
+    when(mockHttpClient.get(any, headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response(readFixture(file), 200));
   }
 
   void setUpMockHttpClientFailure() {
@@ -35,7 +36,7 @@ void main() {
 
   group('getFullYearWeather', () {
     test('should perform GET request to an API', () async {
-      setUpMockHttpClientSuccess();
+      setUpMockHttpClientSuccess('weather_mixed.json');
       dataSource.getFullYearWeather();
       verify(
         mockHttpClient.get(
@@ -49,7 +50,7 @@ void main() {
         () async {
       final tWeatherList = WeatherModelList.fromJson(
           json.decode(readFixture('weather_mixed.json')));
-      setUpMockHttpClientSuccess();
+      setUpMockHttpClientSuccess('weather_mixed.json');
       final result = await dataSource.getFullYearWeather();
       expect(result, equals(tWeatherList));
     });
@@ -62,9 +63,9 @@ void main() {
     });
   });
 
-  group('getWeeklyYearWeather', () {
+  group('getWeeklyWeather', () {
     test('should perform GET request to an API', () async {
-      setUpMockHttpClientSuccess();
+      setUpMockHttpClientSuccess('weather_weekly.json');
       dataSource.getWeeklyWeather();
       verify(
         mockHttpClient.get(
@@ -77,8 +78,8 @@ void main() {
         'should return WeatherModelList when the GET request to the API was successful (200)',
         () async {
       final tWeatherList = WeatherModelList.fromJson(
-          json.decode(readFixture('weather_mixed.json')));
-      setUpMockHttpClientSuccess();
+          json.decode(readFixture('weather_weekly.json')));
+      setUpMockHttpClientSuccess('weather_weekly.json');
       final result = await dataSource.getWeeklyWeather();
       expect(result, equals(tWeatherList));
     });
@@ -86,7 +87,43 @@ void main() {
         'should throw ServerException when the GET request to the API was unsuccessful (404)',
         () async {
       setUpMockHttpClientFailure();
-      final call = dataSource.getFullYearWeather();
+      final call = dataSource.getWeeklyWeather();
+      expect(() => call, throwsA(const TypeMatcher<ServerException>()));
+    });
+  });
+
+  group('getSelectedDayWeather', () {
+    // Picking up random day that is present in our fixture
+    // In this case, method should return only the FIRST element of JSON payload
+    final DateTime tDay = DateFormat("yyyy-MM-dd").parse('2022-08-02');
+
+    test(
+        'should perform GET request with correct selectedDay parameter to an API',
+        () async {
+      setUpMockHttpClientSuccess('weather_daily.json');
+      dataSource.getSelectedDayWeather(tDay);
+      verify(
+        mockHttpClient.get(
+          Uri.http('10.0.2.2:5000', '/api/weather/day/${tDay.toString()}'),
+          headers: {'Content-Type': 'application/json'},
+        ),
+      );
+    });
+
+    test(
+        'should return WeatherModelList when the GET request to the API was successful (200)',
+        () async {
+      final tWeatherList = WeatherModelList.fromJson(
+          json.decode(readFixture('weather_daily.json')));
+      setUpMockHttpClientSuccess('weather_daily.json');
+      final result = await dataSource.getSelectedDayWeather(tDay);
+      expect(result, equals(tWeatherList));
+    });
+    test(
+        'should throw ServerException when the GET request to the API was unsuccessful (404)',
+        () async {
+      setUpMockHttpClientFailure();
+      final call = dataSource.getSelectedDayWeather(tDay);
       expect(() => call, throwsA(const TypeMatcher<ServerException>()));
     });
   });

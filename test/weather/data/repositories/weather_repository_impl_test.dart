@@ -8,7 +8,6 @@ import 'package:graphz/features/weather/data/datasources/weather_remote_datasour
 import 'package:graphz/features/weather/data/models/weather_model.dart';
 import 'package:graphz/features/weather/data/models/weather_model_list.dart';
 import 'package:graphz/features/weather/data/repositories/weather_repository_impl.dart';
-import 'package:graphz/features/weather/domain/entities/weather_list.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

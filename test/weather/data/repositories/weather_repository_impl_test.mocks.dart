@@ -54,6 +54,17 @@ class MockWeatherRemoteDatasource extends _i1.Mock
                   _FakeWeatherModelList_0(
                       this, Invocation.method(#getFullYearWeather, []))))
           as _i4.Future<_i2.WeatherModelList>);
+  @override
+  _i4.Future<_i2.WeatherModelList> getSelectedDayWeather(
+          DateTime? selectedDay) =>
+      (super.noSuchMethod(
+              Invocation.method(#getSelectedDayWeather, [selectedDay]),
+              returnValue: _i4.Future<_i2.WeatherModelList>.value(
+                  _FakeWeatherModelList_0(
+                      this,
+                      Invocation.method(
+                          #getSelectedDayWeather, [selectedDay]))))
+          as _i4.Future<_i2.WeatherModelList>);
 }
 
 /// A class which mocks [WeatherLocalDatasource].
