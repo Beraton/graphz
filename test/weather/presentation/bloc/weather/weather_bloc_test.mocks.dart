@@ -14,6 +14,8 @@ import 'package:graphz/features/weather/domain/repositories/weather_repository.d
     as _i2;
 import 'package:graphz/features/weather/domain/usecases/get_full_year_weather.dart'
     as _i4;
+import 'package:graphz/features/weather/domain/usecases/get_selected_day_weather.dart'
+    as _i10;
 import 'package:graphz/features/weather/domain/usecases/get_weekly_weather.dart'
     as _i9;
 import 'package:mockito/mockito.dart' as _i1;
@@ -83,6 +85,32 @@ class MockGetWeeklyWeather extends _i1.Mock implements _i9.GetWeeklyWeather {
   @override
   _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>> call(
           _i8.NoParams? params) =>
+      (super.noSuchMethod(Invocation.method(#call, [params]),
+              returnValue:
+                  _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>>.value(
+                      _FakeEither_1<_i6.Failure, _i7.WeatherList>(
+                          this, Invocation.method(#call, [params]))))
+          as _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>>);
+}
+
+/// A class which mocks [GetSelectedDayWeather].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetSelectedDayWeather extends _i1.Mock
+    implements _i10.GetSelectedDayWeather {
+  MockGetSelectedDayWeather() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.WeatherRepository get repository => (super.noSuchMethod(
+          Invocation.getter(#repository),
+          returnValue:
+              _FakeWeatherRepository_0(this, Invocation.getter(#repository)))
+      as _i2.WeatherRepository);
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>> call(
+          _i10.Params? params) =>
       (super.noSuchMethod(Invocation.method(#call, [params]),
               returnValue:
                   _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>>.value(

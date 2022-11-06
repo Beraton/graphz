@@ -10,3 +10,12 @@ abstract class WeatherEvent extends Equatable {
 class GetFullYearWeatherEvent extends WeatherEvent {}
 
 class GetLastWeekWeatherEvent extends WeatherEvent {}
+
+class GetSelectedDayWeatherEvent extends WeatherEvent {
+  final DateTime selectedDay;
+
+  GetSelectedDayWeatherEvent(this.selectedDay);
+
+  @override
+  List<Object> get props => [selectedDay];
+}

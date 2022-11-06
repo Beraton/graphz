@@ -26,6 +26,7 @@ void init() {
     () => WeatherBloc(
       fullYear: sl(),
       weeklyWeather: sl(),
+      selectedDayWeather: sl(),
     ),
   );
 
