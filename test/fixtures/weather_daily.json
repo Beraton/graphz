@@ -1,0 +1,19 @@
+{
+    "status": "success",
+    "data": [
+        {
+            "time": "2022-08-02T15:30:00.000Z",
+            "mean_temperature": 24.0,
+            "mean_humidity": 81.1,
+            "mean_pressure": 1014.2,
+            "mean_light": 55.1
+        },
+        {
+            "time": "2022-08-02T18:10:00.000Z",
+            "mean_temperature": 24.0,
+            "mean_humidity": 81.1,
+            "mean_pressure": 1014.2,
+            "mean_light": 55.1
+        }
+    ]
+}

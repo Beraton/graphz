@@ -16,8 +16,6 @@ import 'get_full_year_weather_test.mocks.dart';
    - Import newly generated mock file (*.mocks.dart)
 */
 
-//class MockWeatherRepository extends Mock implements WeatherRepository {}
-
 @GenerateMocks([WeatherRepository])
 void main() {
   late GetFullYearWeather usecase;

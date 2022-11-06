@@ -28,13 +28,6 @@ class WeatherList extends Equatable {
       ParamType.light: () => weatherList.forEach((i) {
             res.add(i.light);
           }),
-      /*
-      ParamType.temperature:
-          weatherList.forEach((item) => res.add(item.temperature)),
-      ParamType.humidity: weatherList.forEach((item) => res.add(item.humidity)),
-      ParamType.pressure: weatherList.forEach((item) => res.add(item.pressure)),
-      ParamType.light: weatherList.forEach((item) => res.add(item.light)),
-      */
     };
     map[type]!.call();
     return res;

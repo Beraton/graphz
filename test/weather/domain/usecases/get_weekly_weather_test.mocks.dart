@@ -53,4 +53,14 @@ class MockWeatherRepository extends _i1.Mock implements _i3.WeatherRepository {
                       _FakeEither_0<_i5.Failure, _i6.WeatherList>(
                           this, Invocation.method(#getFullYearWeather, []))))
           as _i4.Future<_i2.Either<_i5.Failure, _i6.WeatherList>>);
+  @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.WeatherList>> getSelectedDayWeather(
+          DateTime? selectedDay) =>
+      (super.noSuchMethod(
+              Invocation.method(#getSelectedDayWeather, [selectedDay]),
+              returnValue:
+                  _i4.Future<_i2.Either<_i5.Failure, _i6.WeatherList>>.value(
+                      _FakeEither_0<_i5.Failure, _i6.WeatherList>(this,
+                          Invocation.method(#getSelectedDayWeather, [selectedDay]))))
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.WeatherList>>);
 }

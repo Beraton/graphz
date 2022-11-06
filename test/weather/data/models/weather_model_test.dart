@@ -8,11 +8,11 @@ import '../../../fixtures/json_reader.dart';
 
 void main() {
   final tWeatherModel = WeatherModel(
-    time: DateTime.parse("2022-08-13T20:15:46.198Z"),
-    tempRaw: 24.01,
-    humRaw: 81.1552734375,
-    presRaw: 1014.2944341819934,
-    lux: 55.01,
+    time: DateTime.parse("2022-08-01T19:15:00.000Z"),
+    tempRaw: 24.0,
+    humRaw: 81.1,
+    presRaw: 1014.2,
+    lux: 55.1,
   );
 
   test(
