@@ -9,7 +9,7 @@ import '../../../../core/errors/failure.dart';
 import '../../domain/entities/weather_list.dart';
 import '../models/weather_model_list.dart';
 
-typedef Future<WeatherModelList> _FullYearOrWeeklyWeatherChooser();
+typedef _FullWeeklyOrDailyWeatherChooser = Future<WeatherModelList> Function();
 
 class WeatherRepositoryImpl implements WeatherRepository {
   final WeatherRemoteDatasource remoteDatasource;
@@ -40,12 +40,22 @@ class WeatherRepositoryImpl implements WeatherRepository {
     );
   }
 
+  @override
+  Future<Either<Failure, WeatherModelList>> getSelectedDayWeather(
+      DateTime selectedDay) async {
+    return await _getWeather(
+      () {
+        return remoteDatasource.getSelectedDayWeather(selectedDay);
+      },
+    );
+  }
+
   Future<Either<Failure, WeatherModelList>> _getWeather(
-      _FullYearOrWeeklyWeatherChooser getFullYearOrWeekly) async {
+      _FullWeeklyOrDailyWeatherChooser getFullWeeklyOrDaily) async {
     Future<bool> isConn = networkInfo.isConnected;
     if (await isConn == true) {
       try {
-        final remoteWeather = await getFullYearOrWeekly();
+        final remoteWeather = await getFullWeeklyOrDaily();
         localDatasource.cacheWeeklyWeather(remoteWeather);
         return Right(remoteWeather);
       } on ServerException {
@@ -53,7 +63,6 @@ class WeatherRepositoryImpl implements WeatherRepository {
       }
     } else {
       try {
-        print("Trying to get cachedWeeklyWeather from device...");
         final localWeather = await localDatasource.getCachedWeeklyWeather();
         return Right(localWeather);
       } on CacheException {

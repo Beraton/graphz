@@ -31,13 +31,10 @@ class WeatherLocalDatasourceImpl extends WeatherLocalDatasource {
 
   @override
   Future<WeatherModelList> getCachedWeeklyWeather() async {
-    //final jsonString = await hiveInterface.openBox(cachedWeather).get('weekly');
     final box = await _openBox(cachedWeather);
-    //print(box.get('weekly'));
     final jsonObj = await box.get('weekly');
     if (jsonObj != null) {
       Map<String, dynamic> newJson = Map<String, dynamic>.from(jsonObj);
-      //print(newJson['data'][newJson['data'].length - 1]);
       return Future.value(WeatherModelList.fromJson(newJson));
     } else {
       throw CacheException();
