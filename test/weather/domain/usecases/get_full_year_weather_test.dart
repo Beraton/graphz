@@ -29,16 +29,16 @@ void main() {
   final tResponse = WeatherList([
     Weather(
         time: DateTime.parse("2022-08-09T11:00:00.000Z"),
-        tempRaw: 24.526027397260272,
-        humRaw: 49.527611301369866,
-        presRaw: 1024.4455655209517,
-        lux: 228.13698630136986),
+        tempRaw: 24.5,
+        humRaw: 49.5,
+        presRaw: 1024.4,
+        lux: 228.1),
     Weather(
         time: DateTime.parse("2022-08-09T11:30:00.000Z"),
-        tempRaw: 27.526027397260272,
-        humRaw: 51.527611301369866,
-        presRaw: 1023.4455655209517,
-        lux: 329.13698630136986),
+        tempRaw: 27.5,
+        humRaw: 51.5,
+        presRaw: 1023.4,
+        lux: 329.1)
   ]);
 
   test(
