@@ -8,6 +8,6 @@ class NoParams extends Equatable {
   List<Object> get props => [];
 }
 
-abstract class UseCase<List, Params> {
-  Future<Either<Failure, List>> call(Params params);
+abstract class UseCase<Type, Params> {
+  Future<Either<Failure, Type>> call(Params params);
 }
