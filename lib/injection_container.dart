@@ -7,6 +7,7 @@ import 'package:graphz/features/weather/data/repositories/weather_repository_imp
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart';
 import 'package:graphz/features/weather/domain/usecases/get_full_year_weather.dart';
 import 'package:graphz/features/weather/domain/usecases/get_weekly_weather.dart';
+import 'package:graphz/features/weather/domain/usecases/get_selected_day_weather.dart';
 import 'package:graphz/features/weather/presentation/bloc/weather_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -42,6 +43,7 @@ void init() {
   // Use cases
   sl.registerLazySingleton(() => GetFullYearWeather(sl()));
   sl.registerLazySingleton(() => GetWeeklyWeather(sl()));
+  sl.registerLazySingleton(() => GetSelectedDayWeather(sl()));
 
   // Repository
   sl.registerLazySingleton<WeatherRepository>(
