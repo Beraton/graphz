@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import '../errors/failure.dart';
 
 class InputDateConverter {
-  Either<Failure, String> parseDateToYearMonthDay(DateTime inputDate) {
+  Either<Failure, String> parseDateToString(DateTime inputDate) {
     final DateTime yearAgo =
         CustomizableDateTime.current.subtract(Duration(days: 365));
     try {
