@@ -15,14 +15,14 @@ void main() {
     test("should return a Failure when the date is older than one year", () {
       // declaring some old date that should trigger a failure
       final DateTime oldTestDate = DateTime(2000, 1, 1);
-      final result = inputDateConverter.parseDateToYearMonthDay(oldTestDate);
+      final result = inputDateConverter.parseDateToString(oldTestDate);
       expect(result, Left(InvalidDateFailure()));
     });
     test("should return a date string in a format yyyy-MM-dd", () {
       // setting up current DateTime to 2000-10-10 for testing purposes
       CustomizableDateTime.customTime = DateTime(2000, 10, 10);
       final DateTime testDate = DateTime(2000, 1, 1);
-      final result = inputDateConverter.parseDateToYearMonthDay(testDate);
+      final result = inputDateConverter.parseDateToString(testDate);
       expect(result, const Right("2000-01-01"));
     });
   });
