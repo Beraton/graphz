@@ -42,7 +42,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
 
   @override
   Future<Either<Failure, WeatherModelList>> getSelectedDayWeather(
-      DateTime selectedDay) async {
+      String selectedDay) async {
     return await _getWeather(
       () {
         return remoteDatasource.getSelectedDayWeather(selectedDay);

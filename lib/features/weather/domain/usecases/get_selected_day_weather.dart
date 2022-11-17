@@ -18,7 +18,7 @@ class GetSelectedDayWeather implements UseCase<WeatherList, Params> {
 }
 
 class Params extends Equatable {
-  final DateTime selectedDay;
+  final String selectedDay;
 
   Params({required this.selectedDay});
 

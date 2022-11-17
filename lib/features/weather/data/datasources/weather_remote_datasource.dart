@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 abstract class WeatherRemoteDatasource {
   Future<WeatherModelList> getWeeklyWeather();
   Future<WeatherModelList> getFullYearWeather();
-  Future<WeatherModelList> getSelectedDayWeather(DateTime selectedDay);
+  Future<WeatherModelList> getSelectedDayWeather(String selectedDay);
 }
 
 class WeatherRemoteDatasourceImpl implements WeatherRemoteDatasource {
@@ -44,7 +44,7 @@ class WeatherRemoteDatasourceImpl implements WeatherRemoteDatasource {
       _getWeatherFromUrl(Uri.http('10.0.2.2:5000', '/api/weather/weekly'));
 
   @override
-  Future<WeatherModelList> getSelectedDayWeather(DateTime selectedDay) =>
+  Future<WeatherModelList> getSelectedDayWeather(String selectedDay) =>
       _getWeatherFromUrl(
           Uri.http('10.0.2.2:5000', '/api/weather/day/$selectedDay'));
 }

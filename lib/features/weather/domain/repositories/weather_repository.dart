@@ -7,5 +7,5 @@ abstract class WeatherRepository {
   Future<Either<Failure, WeatherList>> getWeeklyWeather();
   Future<Either<Failure, WeatherList>> getFullYearWeather();
   Future<Either<Failure, WeatherList>> getSelectedDayWeather(
-      DateTime selectedDay);
+      String selectedDay);
 }
