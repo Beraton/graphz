@@ -2,6 +2,7 @@ import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart
 import 'package:get_it/get_it.dart';
 import 'package:graphz/core/bloc/navigation_bloc.dart';
 import 'package:graphz/core/network/network_info.dart';
+import 'package:graphz/core/util/input_date_converter.dart';
 import 'package:graphz/features/weather/data/datasources/weather_local_datasource.dart';
 import 'package:graphz/features/weather/data/repositories/weather_repository_impl.dart';
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart';
@@ -28,6 +29,7 @@ void init() {
       fullYear: sl(),
       weeklyWeather: sl(),
       selectedDayWeather: sl(),
+      inputDateConverter: sl(),
     ),
   );
 
@@ -62,6 +64,7 @@ void init() {
 
   /* Core */
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton(() => InputDateConverter());
 
   /* External */
   // Hive is a variable name to access the HiveImpl() class instance, maybe it will work
