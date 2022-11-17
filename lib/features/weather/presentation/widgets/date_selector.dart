@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../bloc/weather_bloc.dart';
 
 class DateSelector extends StatefulWidget {
   const DateSelector({super.key});
@@ -36,6 +39,8 @@ class _DateSelectorState extends State<DateSelector> {
                     dateController.text =
                         DateFormat("yyyy-MM-dd").format(currentDate).toString();
                   });
+                  BlocProvider.of<WeatherBloc>(context)
+                      .add(GetSelectedDayWeatherEvent(currentDate));
                 },
                 icon: Icon(Icons.arrow_back),
               ),
@@ -51,6 +56,8 @@ class _DateSelectorState extends State<DateSelector> {
                     }
                     dateController.text =
                         DateFormat("yyyy-MM-dd").format(currentDate).toString();
+                    BlocProvider.of<WeatherBloc>(context)
+                        .add(GetSelectedDayWeatherEvent(currentDate));
                   });
                 },
                 icon: Icon(Icons.arrow_forward),
