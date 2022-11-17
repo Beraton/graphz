@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphz/core/data/util/weather_filter.dart';
 import 'package:graphz/core/errors/exceptions.dart';
+import 'package:graphz/core/util/customizable_date_time.dart';
 import 'package:graphz/features/weather/data/datasources/weather_local_datasource.dart';
 import 'package:graphz/features/weather/data/models/weather_model.dart';
 import 'package:graphz/features/weather/data/models/weather_model_list.dart';
@@ -30,41 +31,42 @@ void main() {
     dataSource = WeatherLocalDatasourceImpl(
       hiveInterface: mockHiveInterface,
     );
+    CustomizableDateTime.customTime = DateTime(2010, 10, 10);
   });
 
-  final date1 = DateTime.now().subtract(const Duration(days: 10));
-  final date2 = DateTime.now().subtract(const Duration(days: 8));
-  final date3 = DateTime.now().subtract(const Duration(days: 3));
-  final date4 = DateTime.now();
+  final date1 = DateTime(2010, 10, 3);
+  final date2 = DateTime(2010, 10, 4);
+  final date3 = DateTime(2010, 10, 8);
+  final date4 = DateTime(2010, 10, 9);
 
   final tWeatherModelList = WeatherModelList(
     [
       WeatherModel(
         time: date1,
         tempRaw: 24.01,
-        humRaw: 81.1552734375,
-        presRaw: 1014.2944341819934,
+        humRaw: 81.15,
+        presRaw: 1014.29,
         lux: 55.01,
       ),
       WeatherModel(
         time: date2,
         tempRaw: 24.01,
-        humRaw: 81.1552734375,
-        presRaw: 1014.2944341819934,
+        humRaw: 81.15,
+        presRaw: 1014.29,
         lux: 55.01,
       ),
       WeatherModel(
         time: date3,
         tempRaw: 24.01,
-        humRaw: 81.1552734375,
-        presRaw: 1014.2944341819934,
+        humRaw: 81.15,
+        presRaw: 1014.29,
         lux: 55.01,
       ),
       WeatherModel(
         time: date4,
         tempRaw: 24.01,
-        humRaw: 81.1552734375,
-        presRaw: 1014.2944341819934,
+        humRaw: 81.15,
+        presRaw: 1014.29,
         lux: 55.01,
       ),
     ],
@@ -74,15 +76,15 @@ void main() {
     WeatherModel(
       time: date3,
       tempRaw: 24.01,
-      humRaw: 81.1552734375,
-      presRaw: 1014.2944341819934,
+      humRaw: 81.15,
+      presRaw: 1014.29,
       lux: 55.01,
     ),
     WeatherModel(
       time: date4,
       tempRaw: 24.01,
-      humRaw: 81.1552734375,
-      presRaw: 1014.2944341819934,
+      humRaw: 81.15,
+      presRaw: 1014.29,
       lux: 55.01,
     ),
   ]);

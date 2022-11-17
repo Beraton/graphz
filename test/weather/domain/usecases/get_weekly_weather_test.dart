@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphz/core/usecases/usecase.dart';
+import 'package:graphz/core/util/customizable_date_time.dart';
 import 'package:graphz/features/weather/domain/entities/weather.dart';
 import 'package:graphz/features/weather/domain/entities/weather_list.dart';
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart';
@@ -18,17 +19,18 @@ void main() {
   setUp(() {
     mockWeatherRepository = MockWeatherRepository();
     usecase = GetWeeklyWeather(mockWeatherRepository);
+    CustomizableDateTime.customTime = DateTime(2010, 10, 10);
   });
 
   final tResponse = WeatherList([
     Weather(
-        time: DateTime.now().subtract(const Duration(days: 3)),
+        time: DateTime(2010, 10, 7),
         tempRaw: 24.5,
         humRaw: 49.5,
         presRaw: 1024.4,
         lux: 228.1),
     Weather(
-        time: DateTime.now().subtract(const Duration(days: 2)),
+        time: DateTime(2010, 10, 5),
         tempRaw: 27.5,
         humRaw: 51.5,
         presRaw: 1023.4,

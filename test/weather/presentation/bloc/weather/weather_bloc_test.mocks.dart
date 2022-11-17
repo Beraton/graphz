@@ -8,6 +8,7 @@ import 'dart:async' as _i5;
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:graphz/core/errors/failure.dart' as _i6;
 import 'package:graphz/core/usecases/usecase.dart' as _i8;
+import 'package:graphz/core/util/input_date_converter.dart' as _i11;
 import 'package:graphz/features/weather/domain/entities/weather_list.dart'
     as _i7;
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart'
@@ -117,4 +118,21 @@ class MockGetSelectedDayWeather extends _i1.Mock
                       _FakeEither_1<_i6.Failure, _i7.WeatherList>(
                           this, Invocation.method(#call, [params]))))
           as _i5.Future<_i3.Either<_i6.Failure, _i7.WeatherList>>);
+}
+
+/// A class which mocks [InputDateConverter].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockInputDateConverter extends _i1.Mock
+    implements _i11.InputDateConverter {
+  MockInputDateConverter() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Either<_i6.Failure, String> parseDateToString(DateTime? inputDate) =>
+      (super.noSuchMethod(Invocation.method(#parseDateToString, [inputDate]),
+              returnValue: _FakeEither_1<_i6.Failure, String>(
+                  this, Invocation.method(#parseDateToString, [inputDate])))
+          as _i3.Either<_i6.Failure, String>);
 }

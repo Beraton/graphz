@@ -13,14 +13,6 @@ import 'package:mockito/mockito.dart';
 
 import 'weather_repository_impl_test.mocks.dart';
 
-/*
-class MockRemoteDatasource extends Mock implements WeatherRemoteDatasource {}
-
-class MockLocalDatasource extends Mock implements WeatherLocalDatasource {}
-
-class MockNetworkInfo extends Mock implements NetworkInfo {}
-*/
-
 @GenerateMocks([WeatherRemoteDatasource, WeatherLocalDatasource, NetworkInfo])
 void main() {
   late WeatherRepositoryImpl repository;
@@ -43,12 +35,10 @@ void main() {
     WeatherModel(
         time: DateTime.parse("2022-08-13T20:15:46.198Z"),
         tempRaw: 24.01,
-        humRaw: 81.1552734375,
-        presRaw: 1014.2944341819934,
+        humRaw: 81.15,
+        presRaw: 1014.29,
         lux: 55.01),
   ]);
-
-  //final Weather tWeather = tWeatherModel;
 
   // Helper function for running tests online
   void runTestsOnline(Function tests) {
@@ -73,13 +63,10 @@ void main() {
   }
 
   test('should check if device is online', () async {
-    // set up
     when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
     when(mockRemoteDatasource.getFullYearWeather())
         .thenAnswer((_) async => tWeatherModelList);
-    // act
     await repository.getFullYearWeather();
-    // check
     verify(mockNetworkInfo.isConnected);
   });
 
@@ -87,24 +74,18 @@ void main() {
     runTestsOnline(() {
       test('should return remote data when call to remote API was successful',
           () async {
-        // set up
         when(mockRemoteDatasource.getFullYearWeather())
             .thenAnswer((_) async => tWeatherModelList);
-        // act
         final result = await repository.getFullYearWeather();
-        // check
         verify(mockRemoteDatasource.getFullYearWeather());
         expect(result, Right(tWeatherModelList));
       });
 
       test('should cache data when call to remote API was successful',
           () async {
-        // set up
         when(mockRemoteDatasource.getFullYearWeather())
             .thenAnswer((_) async => tWeatherModelList);
-        // act
         await repository.getFullYearWeather();
-        // check
         verify(mockRemoteDatasource.getFullYearWeather());
         verify(mockLocalDatasource.cacheWeeklyWeather(tWeatherModelList));
       });
@@ -112,12 +93,9 @@ void main() {
       test(
           'should return server failure when call to remote API was unsuccessful',
           () async {
-        // set up
         when(mockRemoteDatasource.getFullYearWeather())
             .thenThrow(ServerException());
-        // act
         final result = await repository.getFullYearWeather();
-        // check
         verify(mockRemoteDatasource.getFullYearWeather());
         verifyZeroInteractions(mockLocalDatasource);
         expect(result, Left(ServerFailure()));
@@ -128,12 +106,9 @@ void main() {
       test(
           'should return locally cached weekly weather data when it is present',
           () async {
-        // set up
         when(mockLocalDatasource.getCachedWeeklyWeather())
             .thenAnswer((_) async => (tWeatherModelList));
-        // act
         final result = await repository.getFullYearWeather();
-        // check
         verifyZeroInteractions(mockRemoteDatasource);
         verify(mockLocalDatasource.getCachedWeeklyWeather());
         expect(result, Right(tWeatherModelList));
@@ -142,12 +117,9 @@ void main() {
       test(
           'should return cache exception when there is no locally cached data present',
           () async {
-        // set up
         when(mockLocalDatasource.getCachedWeeklyWeather())
             .thenThrow(CacheException());
-        // act
         final result = await repository.getFullYearWeather();
-        // check
         verifyZeroInteractions(mockRemoteDatasource);
         verify(mockLocalDatasource.getCachedWeeklyWeather());
         expect(result, Left(CacheFailure()));

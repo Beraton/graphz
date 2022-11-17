@@ -95,7 +95,7 @@ void main() {
   group('getSelectedDayWeather', () {
     // Picking up random day that is present in our fixture
     // In this case, method should return only the FIRST element of JSON payload
-    final DateTime tDay = DateFormat("yyyy-MM-dd").parse('2022-08-02');
+    final String tDay = "2022, 08, 02";
 
     test(
         'should perform GET request with correct selectedDay parameter to an API',

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:graphz/core/usecases/usecase.dart';
+import 'package:graphz/core/util/customizable_date_time.dart';
 import 'package:graphz/features/weather/domain/entities/weather.dart';
 import 'package:graphz/features/weather/domain/entities/weather_list.dart';
 import 'package:graphz/features/weather/domain/repositories/weather_repository.dart';
@@ -18,18 +19,19 @@ void main() {
   setUp(() {
     mockWeatherRepository = MockWeatherRepository();
     usecase = GetSelectedDayWeather(mockWeatherRepository);
+    CustomizableDateTime.customTime = DateTime(2010, 10, 10);
   });
 
   final tResponse = WeatherList([
     Weather(
-        time: DateTime.now().subtract(const Duration(hours: 2)),
+        time: DateTime.parse("2010-10-10T15:00:00.000Z"),
         tempRaw: 24.5,
         humRaw: 49.5,
         presRaw: 1024.4,
         lux: 228.1),
   ]);
 
-  final DateTime tDay = DateTime.now();
+  final String tDay = "2010-10-10";
 
   test(
     'should get selected day data available from repository',
